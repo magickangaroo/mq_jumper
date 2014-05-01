@@ -125,7 +125,7 @@ if fileHandle != 0:
 for channel in fd.readlines():
     channel = channel.rstrip('\n') 
     if verbose == 1:
-        print "Testing Channel: "+channel
+        print "=========================\nTesting Channel: "+channel
     # Prepare the handshake string
     send_string = mq.get_handshake(channel)
 
@@ -151,14 +151,14 @@ for channel in fd.readlines():
     data = read_data(outgoing,0)
 
     # Check its MQ
-    error = check_mq(data,verbose)
+    error = check_mq(data, verbose)
 
     if error == 1:
         print "Error detected exiting!"
         sys.exit(0)
 
     # Get the queue manager name
-    queue_manager = check_status(data,verbose)
+    queue_manager = check_status(data, verbose)
 
     if queue_manager == 0:
         error = check_return_code(queue_manager, outgoing, "", 1)
@@ -175,7 +175,8 @@ for channel in fd.readlines():
         continue    
 
     try:
-        fd2 = open(file,'r')
+        fd2 = open(file, 'r')
+
     except Exception:
         print 'Error, cannot open ciphers file'
         sys.exit(0)
@@ -187,19 +188,21 @@ for channel in fd.readlines():
         version = int(splitcipher[1])
 
         if verbose == 1:
-            print "Trying Cipher: "+cipher
-
+            print "-------\nTrying Cipher: "+cipher
+        sslortls = ""
         # Set up the connection to our target
         if version == 0:
             ctx = SSL.Context(SSL.SSLv3_METHOD)
+            sslortls = "SSLv3"
         else:
             ctx = SSL.Context(SSL.TLSv1_METHOD)
+            sslortls = "TLSv1"
 
         ctx.set_cipher_list(cipher)
 
         outgoing = SSL.Connection(ctx, socket.socket(socket.AF_INET, socket.SOCK_STREAM))
         outgoing.connect((target, port))
-
+        print "[*] Using " + cipher + " [" + sslortls + "] on " + target + ':'+str(port)
         # Send the first handshake string
         outgoing.send(send_string)
 
