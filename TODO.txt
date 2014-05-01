@@ -1,0 +1,7 @@
+TODO
+
+This toolkit is currently under development and will be subject to a number of improvements. The objective is to create a framework which will allow Websphere MQ installations be be tested for security vulnerabilities.
+
+Please send all feature requests or updates for the code to: -
+
+martyn (dot) ruks (at) mwrinfosecurity (dot) com

@@ -1,0 +1,36 @@
+README
+
+This selection of tools are libraries are intended for the purpose of evaluating security controls applied to the IBM Websphere MQ product. This tool is still undergoing active development and therefore this document will be subject to alteration in future releases.
+
+Please refer to the MWR InfoSecurity white paper on Websphere MQ security for more detail about the security features of the software and the operation of these tools. At the present time the tools only support connections to Server Connection channels.
+
+To use these tools you must have pyopenssl installed and cipher support will depend on the configuration of this package.
+
+Use the --help command line option to display detailed help about the operation of the tool.
+
+This distribution consists of a number of components: -
+
+Tools
+
+mq_inquire_q_manager.py - This is a python tool for retrieving version information from a Websphere MQ system. The tool operates by establishing a connection to a Queue Manager and then issuing a Inquire Queue Manager PCF command. The ability to use this tool will depend on the configuration of the software and its use of security controls.
+
+mq_ssl_check.py - Use this tool to check the SSL ciphers supported by a set of channels. This tool requires a text file containing a list of channels and a list of ciphers to test. Further instructions can be found within the script itself.
+
+mq_finder_tool.py - This script requires an nmap file in grappable format to search for instances of Websphere MQ on the network. 
+
+Libraries
+
+shared_classes.py - This is a file containing a number of python classes and functions used across the toolkit. These are primarily designed to perform operations on data passed to and from MQ.
+
+mq_strings.py - This is a file containing python classes and functions which are primarily made up of packet definitions and constants, inlcuding error codes. 
+
+Text Files
+
+mq_channels.txt - This text file contains a list of channels which will be tested by the mq_ssl_check tool.
+
+ssl_ciphers.txt - This file contains a comma separated list of the ciphers and SSL versions supported by MQ. SSLv3 is distinguished by 0 and TLSv1 by 1.
+
+For further information about the tool, to report bugs, request features or offer any help please mail me at this address: -
+
+martyn ({dot}) ruks <(at)> mwrinfosecurity ({dot}) com
+
